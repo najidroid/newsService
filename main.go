@@ -1,7 +1,7 @@
 package main
 
 import (
-	//	_ "clever-cloud.com/app_ef9c76b3-66e6-4a0f-8eb7-b645d18a05e1.git"
+	//	_ "newsService/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -22,7 +22,7 @@ import (
 	"github.com/ungerik/go-rss"
 
 	//	"github.com/go-telegram-bot-api/telegram-bot-api"
-	"time"
+	//	"time"
 
 	tb "gopkg.in/tucnak/telebot.v2"
 )
@@ -66,10 +66,12 @@ func main() {
 	//	orm.RegisterModel(new(User))
 
 	readRSS()
-
+	readRSS()
+	readRSS()
+	readRSS()
 	//	startBot()
 
-	//startAnotherBot()
+	//	startAnotherBot()
 
 	startGocorn()
 
@@ -112,7 +114,16 @@ func readRSS() {
 		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
 		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
 		//		URL: "http://195.129.111.17:8012",
-		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
+		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
+	})
+
+	b.Handle(tb.OnChannelPost, func(m *tb.Message) {
+		if m == nil {
+			fmt.Println("m is nil*********************")
+		}
+		fmt.Println(m.Chat)
+
+		// channel posts only
 	})
 
 	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
@@ -133,7 +144,10 @@ func readRSS() {
 
 	}
 
-	b.Start()
+	//	b.Start()
+
+	fmt.Println("****************///////////////////*******************")
+
 }
 
 //func startAnotherBot() {
@@ -141,7 +155,7 @@ func readRSS() {
 //		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
 //		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
 //		//		URL: "http://195.129.111.17:8012",
-//		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
+//		//		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
 //	})
 
 //	if err != nil {
@@ -167,14 +181,15 @@ func readRSS() {
 //	})
 
 //	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
-//	p1 := &tb.Photo{File: tb.FromDisk("nazar.jpg")}
-//	p2 := &tb.Photo{File: tb.FromURL("https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1472214103451-9374bd1c798e%3Fixlib%3Drb-1.2.1%26ixid%3DeyJhcHBfaWQiOjEyMDd9%26w%3D1000%26q%3D80&imgrefurl=https%3A%2F%2Funsplash.com%2Fsearch%2Fphotos%2Fpic&docid=yLbmyYyJ2Ux6uM&tbnid=igUvhVcxMorBOM%3A&vet=10ahUKEwjKlcX2yrnkAhVok4sKHTQDDocQMwhtKAAwAA..i&w=1000&h=667&client=ubuntu&bih=639&biw=1299&q=pic&ved=0ahUKEwjKlcX2yrnkAhVok4sKHTQDDocQMwhtKAAwAA&iact=mrc&uact=8")}
-//	b.SendAlbum(rec, tb.Album{p1, p2})
+//	//	p1 := &tb.Photo{File: tb.FromDisk("nazar.jpg")}
+//	//	p2 := &tb.Photo{File: tb.FromURL("https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1472214103451-9374bd1c798e%3Fixlib%3Drb-1.2.1%26ixid%3DeyJhcHBfaWQiOjEyMDd9%26w%3D1000%26q%3D80&imgrefurl=https%3A%2F%2Funsplash.com%2Fsearch%2Fphotos%2Fpic&docid=yLbmyYyJ2Ux6uM&tbnid=igUvhVcxMorBOM%3A&vet=10ahUKEwjKlcX2yrnkAhVok4sKHTQDDocQMwhtKAAwAA..i&w=1000&h=667&client=ubuntu&bih=639&biw=1299&q=pic&ved=0ahUKEwjKlcX2yrnkAhVok4sKHTQDDocQMwhtKAAwAA&iact=mrc&uact=8")}
+//	//	b.SendAlbum(rec, tb.Album{p1, p2})
+//	//	b.SendAlbum(rec, p2)
 
-//	p := &tb.Photo{File: tb.FromDisk("nazar.jpg"), Caption: "این یک کپشن است:)"}
-//	b.Send(rec, p)
+//	//	p := &tb.Photo{File: tb.FromDisk("nazar.jpg"), Caption: "این یک کپشن است:)"}
+//	//	b.Send(rec, p)
 
-//	b.Send(rec, "محمد درستش کردم، همه چیز رو یاد گرفتم @mohammad_cs_15")
+//	b.Send(rec, "***********************************")
 
 //	b.Start()
 
