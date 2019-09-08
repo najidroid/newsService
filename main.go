@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "localhost:8080/newsService/routers"
+	//	_ "localhost:8080/newsService/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -35,28 +35,28 @@ import (
 //}
 
 func init() {
-	orm.RegisterDriver("mysql", orm.DRMySQL)
+	//	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	orm.RegisterDataBase("default", "mysql", "root:root@/newsservice?charset=utf8")
+	//	orm.RegisterDataBase("default", "mysql", "root:root@/newsservice?charset=utf8")
 }
 
 func main() {
-	// Database alias.
-	name := "default"
+	//	// Database alias.
+	//	name := "default"
 
-	// Drop table and re-create.
-	force := true
+	//	// Drop table and re-create.
+	//	force := true
 
-	// Print log.
-	verbose := true
+	//	// Print log.
+	//	verbose := true
 
-	// Error.
-	err := orm.RunSyncdb(name, force, verbose)
+	//	// Error.
+	//	err := orm.RunSyncdb(name, force, verbose)
 
-	if err != nil {
-		fmt.Println(err)
+	//	if err != nil {
+	//		fmt.Println(err)
 
-	}
+	//	}
 
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
