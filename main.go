@@ -97,6 +97,7 @@ func startGocorn() {
 }
 
 func readRSS() {
+	fmt.Println("reading RSS *******************************************")
 	//	channel, err := rss.Read("https://www.irinn.ir/fa/rss/allnews")
 	channel, err := rss.Read("https://www.irinn.ir/fa/rss/1")
 	//	channel, err := rss.Read("https://www.varzesh3.com/rss/all")
