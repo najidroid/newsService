@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "./src/newsService/routers"
+	_ "https://github.com/najidroid/vahid/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 
