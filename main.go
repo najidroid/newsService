@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_ef9c76b3-66e6-4a0f-8eb7-b645d18a05e1.git/routers"
+	_ "git+ssh://git@push-par-clevercloud-customers.services.clever-cloud.com/app_ef9c76b3-66e6-4a0f-8eb7-b645d18a05e1.git"
 
 	_ "github.com/go-sql-driver/mysql"
 
