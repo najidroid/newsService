@@ -7,6 +7,7 @@ import (
 )
 
 func init() {
+	//sedongsdg
 	//test
 	ns := beego.NewNamespace("/v1",
 		beego.NSNamespace("/user", beego.NSInclude(&controllers.UserController{})),
