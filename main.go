@@ -87,7 +87,7 @@ func failOnError(err error, msg string) {
 func startGocorn() {
 	gocron.Start()
 	s := gocron.NewScheduler()
-	gocron.Every(10).Minutes().Do(readRSS)
+	gocron.Every(1).Minutes().Do(readRSS)
 	//gocron.Every(10).Seconds().Do(vijay)
 	//gocron.Every(1).Monday().Do(task)
 	//gocron.Every(1).Thursday().At("18:30").Do(doTownCup)
