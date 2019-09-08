@@ -1,7 +1,7 @@
 package main
 
 import (
-	//	_ "newsService/routers"
+	_ "./newsService/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 
@@ -66,9 +66,9 @@ func main() {
 	//	orm.RegisterModel(new(User))
 
 	readRSS()
-	readRSS()
-	readRSS()
-	readRSS()
+	//	readRSS()
+	//	readRSS()
+	//	readRSS()
 	//	startBot()
 
 	//	startAnotherBot()
@@ -89,7 +89,7 @@ func failOnError(err error, msg string) {
 func startGocorn() {
 	gocron.Start()
 	s := gocron.NewScheduler()
-	gocron.Every(1).Minutes().Do(readRSS)
+	gocron.Every(10).Minutes().Do(readRSS)
 	//gocron.Every(10).Seconds().Do(vijay)
 	//gocron.Every(1).Monday().Do(task)
 	//gocron.Every(1).Thursday().At("18:30").Do(doTownCup)
