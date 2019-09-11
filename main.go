@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "46.252.181.162:8080/newsService/routers"
+	//	_ "46.252.181.162:8080/newsService/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 
