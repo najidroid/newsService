@@ -101,14 +101,14 @@ func startGocorn() {
 func readRSS() {
 	fmt.Println("reading RSS *******************************************")
 	//	channel, err := rss.Read("https://www.irinn.ir/fa/rss/allnews")
-	channel, err := rss.Read("https://www.irinn.ir/fa/rss/1")
+	//	channel, err := rss.Read("https://www.irinn.ir/fa/rss/1")
 	//	channel, err := rss.Read("https://www.varzesh3.com/rss/all")
 	//	channel, err := rss.Read("https://www.tasnimnews.com/fa/rss/feed/0/8/0/%D9%85%D9%87%D9%85%D8%AA%D8%B1%DB%8C%D9%86-%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1-%D8%AA%D8%B3%D9%86%DB%8C%D9%85")
-	if err != nil {
-		fmt.Println(err)
-	}
+	//	if err != nil {
+	//		fmt.Println(err)
+	//	}
 
-	fmt.Println(channel.Title)
+	//	fmt.Println(channel.Title)
 
 	b, err := tb.NewBot(tb.Settings{
 		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
