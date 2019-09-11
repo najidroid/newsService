@@ -89,8 +89,8 @@ func failOnError(err error, msg string) {
 func startGocorn() {
 	gocron.Start()
 	s := gocron.NewScheduler()
-	gocron.Every(10).Minutes().Do(readRSS)
-	//gocron.Every(10).Seconds().Do(vijay)
+	//	gocron.Every(10).Minutes().Do(readRSS)
+	gocron.Every(5).Seconds().Do(readRSS)
 	//gocron.Every(1).Monday().Do(task)
 	//gocron.Every(1).Thursday().At("18:30").Do(doTownCup)
 	//gocron.Every(1).Friday().At("18:30").Do(doAlleyCup)
@@ -128,21 +128,22 @@ func readRSS() {
 
 	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
 
-	for _, item := range channel.Item {
-		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
+	//	for _, item := range channel.Item {
+	//		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
 
-		fmt.Println(item.Title)
-		fmt.Println(item.Link)
-		fmt.Println(item.Description)
-		if item.Enclosure != nil {
-			fmt.Println(item.Enclosure[0].URL)
-			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
-			b.Send(rec, pic)
-		} else {
-			b.Send(rec, text)
-		}
+	//		fmt.Println(item.Title)
+	//		fmt.Println(item.Link)
+	//		fmt.Println(item.Description)
+	//		if item.Enclosure != nil {
+	//			fmt.Println(item.Enclosure[0].URL)
+	//			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
+	//			b.Send(rec, pic)
+	//		} else {
+	//			b.Send(rec, text)
+	//		}
 
-	}
+	//	}
+	b.Send(rec, "hi")
 
 	//	b.Start()
 
