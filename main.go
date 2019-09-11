@@ -117,14 +117,14 @@ func readRSS() {
 		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
 	})
 
-	b.Handle(tb.OnChannelPost, func(m *tb.Message) {
-		if m == nil {
-			fmt.Println("m is nil*********************")
-		}
-		fmt.Println(m.Chat)
+	//	b.Handle(tb.OnChannelPost, func(m *tb.Message) {
+	//		if m == nil {
+	//			fmt.Println("m is nil*********************")
+	//		}
+	//		fmt.Println(m.Chat)
 
-		// channel posts only
-	})
+	//		// channel posts only
+	//	})
 
 	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
 
