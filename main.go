@@ -28,12 +28,12 @@ import (
 	//	tb "gopkg.in/tucnak/telebot.v2"
 )
 
-//type User struct {
-//	Id    int
-//	Title string
-//	Link  string
-//	Desc  string
-//}
+type User struct {
+	Id    int
+	Title string
+	Link  string
+	Desc  string
+}
 
 func init() {
 	//	orm.RegisterDriver("mysql", orm.DRMySQL)
