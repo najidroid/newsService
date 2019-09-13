@@ -64,7 +64,7 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
-	orm.RegisterModel(new(User))
+	//	orm.RegisterModel(new(User))
 
 	//	readRSS()
 	//	readRSS()
