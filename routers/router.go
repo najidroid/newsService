@@ -1,7 +1,7 @@
 package routers
 
 import (
-	//	"./newsService/controllers"
+	"newsService/controllers"
 
 	"github.com/astaxie/beego"
 )
@@ -9,8 +9,8 @@ import (
 func init() {
 	//sedongsdg
 	//test
-	//	ns := beego.NewNamespace("/v1",
-	//		beego.NSNamespace("/user", beego.NSInclude(&controllers.UserController{})),
-	//	)
-	//	beego.AddNamespace(ns)
+	ns := beego.NewNamespace("/v1",
+		beego.NSNamespace("/user", beego.NSInclude(&controllers.UserController{})),
+	)
+	beego.AddNamespace(ns)
 }

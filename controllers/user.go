@@ -3,7 +3,7 @@ package controllers
 import (
 	//"encoding/json"
 	//"fmt"
-	"./models"
+	"newsService/models"
 
 	"github.com/astaxie/beego"
 )
