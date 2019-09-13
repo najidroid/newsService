@@ -38,7 +38,7 @@ type User struct {
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	orm.RegisterDataBase("default", "mysql", "root:root@/newsservice?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "ulnqqbwi0lydks1l:t1ayc67TrQMXHVyeYYBH@/blv5soem2fl7q6cvsutl?charset=utf8")
 }
 
 func main() {
