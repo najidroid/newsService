@@ -3,8 +3,11 @@ package main
 import (
 	//	_ "newsService/routers"
 
-	_ "github.com/go-sql-driver/mysql"
+	//	_ "github.com/go-sql-driver/mysql"
 	//	_ "github.com/najidroid/newsCervice/routers"
+
+	"github.com/ziutek/mymysql/mysql"
+	_ "github.com/ziutek/mymysql/native"
 
 	"github.com/astaxie/beego"
 
@@ -36,28 +39,36 @@ import (
 //}
 
 func init() {
-	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	orm.RegisterDataBase("default", "mysql", "ulnqqbwi0lydks1l:t1ayc67TrQMXHVyeYYBH@/blv5soem2fl7q6cvsutl-mysql.services.clever-cloud.com?charset=utf8")
+	db := mysql.New("tcp",
+		"",
+		os.Getenv("blv5soem2fl7q6cvsutl-mysql.services.clever-cloud.com")+":"+os.Getenv("3306"),
+		os.Getenv("ulnqqbwi0lydks1l"),
+		os.Getenv("t1ayc67TrQMXHVyeYYBH"),
+		os.Getenv("blv5soem2fl7q6cvsutl"),
+	)
+	//	orm.RegisterDriver("mysql", orm.DRMySQL)
+
+	//	orm.RegisterDataBase("default", "mysql", "ulnqqbwi0lydks1l:t1ayc67TrQMXHVyeYYBH@/blv5soem2fl7q6cvsutl-mysql.services.clever-cloud.com?charset=utf8")
 }
 
 func main() {
-	// Database alias.
-	name := "default"
+	//	// Database alias.
+	//	name := "default"
 
-	// Drop table and re-create.
-	force := true
+	//	// Drop table and re-create.
+	//	force := true
 
-	// Print log.
-	verbose := true
+	//	// Print log.
+	//	verbose := true
 
-	// Error.
-	err := orm.RunSyncdb(name, force, verbose)
+	//	// Error.
+	//	err := orm.RunSyncdb(name, force, verbose)
 
-	if err != nil {
-		fmt.Println(err)
+	//	if err != nil {
+	//		fmt.Println(err)
 
-	}
+	//	}
 
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
