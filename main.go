@@ -38,7 +38,7 @@ type User struct {
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	orm.RegisterDataBase("default", "mysql", "root:t1ayc67TrQMXHVyeYYBH@/blv5soem2fl7q6cvsutl?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "blv5soem2fl7q6cvsutl-mysql.services.clever-cloud.com:t1ayc67TrQMXHVyeYYBH@/blv5soem2fl7q6cvsutl?charset=utf8")
 }
 
 func main() {
