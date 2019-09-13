@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "app-c2453500-c4d4-4d69-b4db-e4b499077779.cleverapps.io/newsService/routers"
+	//	_ "newsService/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 	//	_ "github.com/najidroid/newsCervice/routers"
@@ -10,7 +10,7 @@ import (
 
 	"fmt"
 
-	//	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 
 	"log"
 
@@ -36,35 +36,35 @@ type User struct {
 }
 
 func init() {
-	//	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	//	orm.RegisterDataBase("default", "mysql", "root:root@/newsservice?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "root:root@/newsservice?charset=utf8")
 }
 
 func main() {
-	//	// Database alias.
-	//	name := "default"
+	// Database alias.
+	name := "default"
 
-	//	// Drop table and re-create.
-	//	force := true
+	// Drop table and re-create.
+	force := true
 
-	//	// Print log.
-	//	verbose := true
+	// Print log.
+	verbose := true
 
-	//	// Error.
-	//	err := orm.RunSyncdb(name, force, verbose)
+	// Error.
+	err := orm.RunSyncdb(name, force, verbose)
 
-	//	if err != nil {
-	//		fmt.Println(err)
+	if err != nil {
+		fmt.Println(err)
 
-	//	}
+	}
 
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
-	//	orm.RegisterModel(new(User))
+	orm.RegisterModel(new(User))
 
 	//	readRSS()
 	//	readRSS()
