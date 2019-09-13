@@ -3,7 +3,7 @@ package models
 import (
 	"fmt"
 
-	//	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 )
 
 type User struct {
@@ -15,7 +15,7 @@ type User struct {
 
 func init() {
 	// Need to register model in init
-	//	orm.RegisterModel(new(User))
+	orm.RegisterModel(new(User))
 }
 
 func SetUsers() {

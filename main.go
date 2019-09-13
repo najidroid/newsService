@@ -12,7 +12,7 @@ import (
 
 	"fmt"
 
-	//	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/orm"
 
 	"log"
 
@@ -46,28 +46,28 @@ func init() {
 	//		os.Getenv("t1ayc67TrQMXHVyeYYBH"),
 	//		os.Getenv("blv5soem2fl7q6cvsutl"),
 	//	)
-	//	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	//	orm.RegisterDataBase("default", "mysql", "bet6wf9aiup7rp3qths5-mysql.services.clever-cloud.com:d7tZPzypUxp88hPKdcPk@/bet6wf9aiup7rp3qths5?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "ua4bq61zbvkmnsrg:d7tZPzypUxp88hPKdcPk@tcp(bet6wf9aiup7rp3qths5-mysql.services.clever-cloud.com:3306)/bet6wf9aiup7rp3qths5?charset=utf8")
 }
 
 func main() {
-	//	// Database alias.
-	//	name := "default"
+	// Database alias.
+	name := "default"
 
-	//	// Drop table and re-create.
-	//	force := true
+	// Drop table and re-create.
+	force := true
 
-	//	// Print log.
-	//	verbose := true
+	// Print log.
+	verbose := true
 
-	//	// Error.
-	//	err := orm.RunSyncdb(name, force, verbose)
+	// Error.
+	err := orm.RunSyncdb(name, force, verbose)
 
-	//	if err != nil {
-	//		fmt.Println(err)
+	if err != nil {
+		fmt.Println(err)
 
-	//	}
+	}
 
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
