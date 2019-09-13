@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "https://github.com/najidroid/vahid/tree/master/routers"
+	_ "github.com/najidroid/vahid/tree/master/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 
