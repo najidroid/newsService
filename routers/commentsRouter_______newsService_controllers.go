@@ -7,7 +7,7 @@ import (
 
 func init() {
 
-	beego.GlobalControllerRouter["github.com/najidroid/newsService/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/najidroid/newsService/controllers:UserController"],
+	beego.GlobalControllerRouter["newsService/controllers:UserController"] = append(beego.GlobalControllerRouter["newsService/controllers:UserController"],
 		beego.ControllerComments{
 			Method:           "GetAll",
 			Router:           `/`,
