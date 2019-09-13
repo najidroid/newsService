@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	//"encoding/json"
+	//	"encoding/json"
 	"fmt"
 
 	"github.com/najidroid/newsService/models"
@@ -18,9 +18,9 @@ type UserController struct {
 // @Success 200 {object} models.User
 // @router / user [get]
 func (u *UserController) GetAll() {
-	models.SetUsers()
+	users := models.SetUsers()
 	fmt.Println("controller is working ********************************")
 	//models.SetUsers()
-	//	u.Data["json"] = users
-	//	u.ServeJSON()
+	u.Data["json"] = users
+	u.ServeJSON()
 }

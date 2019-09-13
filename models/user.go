@@ -7,10 +7,11 @@ import (
 )
 
 type User struct {
-	Id    int
-	Title string
-	Link  string
-	Desc  string
+	Id       int
+	Title    string
+	Link     string
+	Desc     string
+	ImageUri string
 }
 
 func init() {
@@ -18,6 +19,9 @@ func init() {
 	orm.RegisterModel(new(User))
 }
 
-func SetUsers() {
+func SetUsers() []*User {
 	fmt.Print("**************hellllooooooo*******************")
+	var data []*User
+	orm.NewOrm().QueryTable(new(User)).All(&data)
+	return data
 }

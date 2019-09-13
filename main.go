@@ -5,9 +5,6 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	//	"github.com/ziutek/mymysql/mysql"
-	//	_ "github.com/ziutek/mymysql/native"
-
 	"github.com/astaxie/beego"
 
 	"fmt"
@@ -18,34 +15,15 @@ import (
 
 	"github.com/claudiu/gocron"
 
-	//"encoding/xml"
-	//	"io/ioutil"
-	//	"net/http"
-
 	"github.com/ungerik/go-rss"
 
-	//	"github.com/go-telegram-bot-api/telegram-bot-api"
-	//	"time"
-
 	tb "gopkg.in/tucnak/telebot.v2"
-)
 
-//type User struct {
-//	Id    int
-//	Title string
-//	Link  string
-//	Desc  string
-//}
+	"github.com/najidroid/newsService/models"
+)
 
 func init() {
 
-	//	db := mysql.New("tcp",
-	//		"",
-	//		os.Getenv("blv5soem2fl7q6cvsutl-mysql.services.clever-cloud.com")+":"+os.Getenv("3306"),
-	//		os.Getenv("ulnqqbwi0lydks1l"),
-	//		os.Getenv("t1ayc67TrQMXHVyeYYBH"),
-	//		os.Getenv("blv5soem2fl7q6cvsutl"),
-	//	)
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 
 	orm.RegisterDataBase("default", "mysql", "ua4bq61zbvkmnsrg:d7tZPzypUxp88hPKdcPk@tcp(bet6wf9aiup7rp3qths5-mysql.services.clever-cloud.com:3306)/bet6wf9aiup7rp3qths5?charset=utf8")
@@ -74,15 +52,7 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
-	//	orm.RegisterModel(new(User))
-
-	//	readRSS()
-	//	readRSS()
-	//	readRSS()
-	//	readRSS()
-	//	startBot()
-
-	//	startAnotherBot()
+	readRSS()
 
 	startGocorn()
 
@@ -128,15 +98,6 @@ func readRSS() {
 		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
 	})
 
-	//	b.Handle(tb.OnChannelPost, func(m *tb.Message) {
-	//		if m == nil {
-	//			fmt.Println("m is nil*********************")
-	//		}
-	//		fmt.Println(m.Chat)
-
-	//		// channel posts only
-	//	})
-
 	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
 
 	for _, item := range channel.Item {
@@ -149,14 +110,23 @@ func readRSS() {
 			fmt.Println(item.Enclosure[0].URL)
 			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
 			b.Send(rec, pic)
+			this := models.User{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: item.Enclosure[0].URL}
+			_, err := orm.NewOrm().Insert(this)
+			if err != nil {
+				//g.CatalogCacheDel("ids")
+				fmt.Printf("save err... %s", err)
+			}
 		} else {
 			b.Send(rec, text)
+			this := models.User{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: ""}
+			_, err := orm.NewOrm().Insert(this)
+			if err != nil {
+				//g.CatalogCacheDel("ids")
+				fmt.Printf("save err... %s", err)
+			}
 		}
 
 	}
-	//	b.Send(rec, "hi")
-
-	//	b.Start()
 
 	fmt.Println("****************///////////////////*******************")
 
