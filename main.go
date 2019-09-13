@@ -76,7 +76,7 @@ func main() {
 
 	//	orm.RegisterModel(new(User))
 
-	//	readRSS()
+	readRSS()
 	//	readRSS()
 	//	readRSS()
 	//	readRSS()

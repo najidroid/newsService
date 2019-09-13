@@ -2,7 +2,8 @@ package controllers
 
 import (
 	//"encoding/json"
-	//"fmt"
+	"fmt"
+
 	"github.com/najidroid/newsService/models"
 
 	"github.com/astaxie/beego"
@@ -18,6 +19,7 @@ type UserController struct {
 // @router / user [get]
 func (u *UserController) GetAll() {
 	models.SetUsers()
+	fmt.Println("controller is working ********************************")
 	//models.SetUsers()
 	//	u.Data["json"] = users
 	//	u.ServeJSON()
