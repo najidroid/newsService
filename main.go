@@ -111,15 +111,16 @@ func readRSS() {
 			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
 			b.Send(rec, pic)
 			this := models.User{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: item.Enclosure[0].URL}
-			_, err := orm.NewOrm().Insert(this)
+			_, err := orm.NewOrm().Insert(&this)
 			if err != nil {
 				//g.CatalogCacheDel("ids")
 				fmt.Printf("save err... %s", err)
 			}
 		} else {
+
 			b.Send(rec, text)
 			this := models.User{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: ""}
-			_, err := orm.NewOrm().Insert(this)
+			_, err := orm.NewOrm().Insert(&this)
 			if err != nil {
 				//g.CatalogCacheDel("ids")
 				fmt.Printf("save err... %s", err)
