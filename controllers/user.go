@@ -3,7 +3,7 @@ package controllers
 import (
 	//"encoding/json"
 	//"fmt"
-	"newsService/models"
+	"github.com/najidroid/newsService/models"
 
 	"github.com/astaxie/beego"
 )

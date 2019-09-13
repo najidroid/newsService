@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"newsService/controllers"
+	"github.com/najidroid/newsService/controllers"
 
 	"github.com/astaxie/beego"
 )
