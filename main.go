@@ -48,7 +48,7 @@ func init() {
 	//	)
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	orm.RegisterDataBase("default", "mysql", "bet6wf9aiup7rp3qths5:d7tZPzypUxp88hPKdcPk@/bet6wf9aiup7rp3qths5-mysql.services.clever-cloud.com?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "ua4bq61zbvkmnsrg:d7tZPzypUxp88hPKdcPk@/bet6wf9aiup7rp3qths5-mysql.services.clever-cloud.com?charset=utf8")
 }
 
 func main() {
