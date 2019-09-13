@@ -1,9 +1,9 @@
 package main
 
 import (
-	_ "newsService/routers"
-
+	//	_ "newsService/routers"
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/najidroid/vahid/routers"
 
 	"github.com/astaxie/beego"
 
@@ -19,7 +19,7 @@ import (
 	//	"io/ioutil"
 	//	"net/http"
 
-	"github.com/ungerik/go-rss"
+	//	"github.com/ungerik/go-rss"
 
 	//	"github.com/go-telegram-bot-api/telegram-bot-api"
 	//	"time"
@@ -110,7 +110,7 @@ func readRSS() {
 
 	//	fmt.Println(channel.Title)
 
-	b, err := tb.NewBot(tb.Settings{
+	b, _ := tb.NewBot(tb.Settings{
 		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
 		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
 		//		URL: "http://195.129.111.17:8012",
