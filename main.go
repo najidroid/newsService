@@ -3,8 +3,7 @@ package main
 import (
 	_ "./routers"
 
-	//	_ "github.com/go-sql-driver/mysql"
-	//	_ "github.com/najidroid/newsCervice/routers"
+	_ "github.com/go-sql-driver/mysql"
 
 	//	"github.com/ziutek/mymysql/mysql"
 	//	_ "github.com/ziutek/mymysql/native"
