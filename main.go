@@ -1,7 +1,7 @@
 package main
 
 import (
-	//	_ "newsService/routers"
+	_ "newsService/routers"
 
 	_ "github.com/go-sql-driver/mysql"
 	//	_ "github.com/najidroid/newsCervice/routers"
@@ -28,17 +28,17 @@ import (
 	//	tb "gopkg.in/tucnak/telebot.v2"
 )
 
-type User struct {
-	Id    int
-	Title string
-	Link  string
-	Desc  string
-}
+//type User struct {
+//	Id    int
+//	Title string
+//	Link  string
+//	Desc  string
+//}
 
 func init() {
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 
-	orm.RegisterDataBase("default", "mysql", "blv5soem2fl7q6cvsutl-mysql.services.clever-cloud.com:t1ayc67TrQMXHVyeYYBH@/blv5soem2fl7q6cvsutl?charset=utf8")
+	orm.RegisterDataBase("default", "mysql", "ulnqqbwi0lydks1l:t1ayc67TrQMXHVyeYYBH@/blv5soem2fl7q6cvsutl-mysql.services.clever-cloud.com?charset=utf8")
 }
 
 func main() {
