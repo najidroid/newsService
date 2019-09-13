@@ -1,10 +1,10 @@
 package main
 
 import (
-	_ "najidroid.com/newsService/routers"
+	_ "http://app-c2453500-c4d4-4d69-b4db-e4b499077779.cleverapps.io/newsService/routers"
 
 	_ "github.com/go-sql-driver/mysql"
-	//	_ "github.com/najidroid/vahid"
+	//	_ "github.com/najidroid/newsCervice/routers"
 
 	"github.com/astaxie/beego"
 
