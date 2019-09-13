@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"newsService/controllers"
+	"./controllers"
 
 	"github.com/astaxie/beego"
 )
