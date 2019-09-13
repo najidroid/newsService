@@ -16,18 +16,18 @@ import (
 
 	"log"
 
-	//	"github.com/claudiu/gocron"
+	"github.com/claudiu/gocron"
 
 	//"encoding/xml"
 	//	"io/ioutil"
 	//	"net/http"
 
-	//	"github.com/ungerik/go-rss"
+	"github.com/ungerik/go-rss"
 
 	//	"github.com/go-telegram-bot-api/telegram-bot-api"
 	//	"time"
 
-	//	tb "gopkg.in/tucnak/telebot.v2"
+	tb "gopkg.in/tucnak/telebot.v2"
 )
 
 //type User struct {
@@ -84,7 +84,7 @@ func main() {
 
 	//	startAnotherBot()
 
-	//	startGocorn()
+	startGocorn()
 
 	beego.Run()
 }
@@ -97,70 +97,70 @@ func failOnError(err error, msg string) {
 	}
 }
 
-//func startGocorn() {
-//	gocron.Start()
-//	s := gocron.NewScheduler()
-//	//	gocron.Every(10).Minutes().Do(readRSS)
-//	gocron.Every(5).Seconds().Do(readRSS)
-//	//gocron.Every(1).Monday().Do(task)
-//	//gocron.Every(1).Thursday().At("18:30").Do(doTownCup)
-//	//gocron.Every(1).Friday().At("18:30").Do(doAlleyCup)
+func startGocorn() {
+	gocron.Start()
+	s := gocron.NewScheduler()
+	gocron.Every(10).Minutes().Do(readRSS)
+	//	gocron.Every(5).Seconds().Do(readRSS)
+	//gocron.Every(1).Monday().Do(task)
+	//gocron.Every(1).Thursday().At("18:30").Do(doTownCup)
+	//gocron.Every(1).Friday().At("18:30").Do(doAlleyCup)
 
-//	s.Start()
-//}
+	s.Start()
+}
 
-//func readRSS() {
-//	fmt.Println("reading RSS *******************************************")
-//	//	channel, err := rss.Read("https://www.irinn.ir/fa/rss/allnews")
-//	//	channel, err := rss.Read("https://www.irinn.ir/fa/rss/1")
-//	//	channel, err := rss.Read("https://www.varzesh3.com/rss/all")
-//	//	channel, err := rss.Read("https://www.tasnimnews.com/fa/rss/feed/0/8/0/%D9%85%D9%87%D9%85%D8%AA%D8%B1%DB%8C%D9%86-%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1-%D8%AA%D8%B3%D9%86%DB%8C%D9%85")
-//	//	if err != nil {
-//	//		fmt.Println(err)
-//	//	}
+func readRSS() {
+	fmt.Println("reading RSS *******************************************")
+	//	channel, err := rss.Read("https://www.irinn.ir/fa/rss/allnews")
+	channel, err := rss.Read("https://www.irinn.ir/fa/rss/1")
+	//	channel, err := rss.Read("https://www.varzesh3.com/rss/all")
+	//	channel, err := rss.Read("https://www.tasnimnews.com/fa/rss/feed/0/8/0/%D9%85%D9%87%D9%85%D8%AA%D8%B1%DB%8C%D9%86-%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1-%D8%AA%D8%B3%D9%86%DB%8C%D9%85")
+	if err != nil {
+		fmt.Println(err)
+	}
 
-//	//	fmt.Println(channel.Title)
+	fmt.Println(channel.Title)
 
-//	b, _ := tb.NewBot(tb.Settings{
-//		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
-//		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
-//		//		URL: "http://195.129.111.17:8012",
-//		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
-//	})
+	b, _ := tb.NewBot(tb.Settings{
+		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
+		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
+		//		URL: "http://195.129.111.17:8012",
+		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
+	})
 
-//	//	b.Handle(tb.OnChannelPost, func(m *tb.Message) {
-//	//		if m == nil {
-//	//			fmt.Println("m is nil*********************")
-//	//		}
-//	//		fmt.Println(m.Chat)
+	//	b.Handle(tb.OnChannelPost, func(m *tb.Message) {
+	//		if m == nil {
+	//			fmt.Println("m is nil*********************")
+	//		}
+	//		fmt.Println(m.Chat)
 
-//	//		// channel posts only
-//	//	})
+	//		// channel posts only
+	//	})
 
-//	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
+	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
 
-//	//	for _, item := range channel.Item {
-//	//		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
+	for _, item := range channel.Item {
+		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
 
-//	//		fmt.Println(item.Title)
-//	//		fmt.Println(item.Link)
-//	//		fmt.Println(item.Description)
-//	//		if item.Enclosure != nil {
-//	//			fmt.Println(item.Enclosure[0].URL)
-//	//			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
-//	//			b.Send(rec, pic)
-//	//		} else {
-//	//			b.Send(rec, text)
-//	//		}
+		fmt.Println(item.Title)
+		fmt.Println(item.Link)
+		fmt.Println(item.Description)
+		if item.Enclosure != nil {
+			fmt.Println(item.Enclosure[0].URL)
+			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
+			b.Send(rec, pic)
+		} else {
+			b.Send(rec, text)
+		}
 
-//	//	}
-//	b.Send(rec, "hi")
+	}
+	//	b.Send(rec, "hi")
 
-//	//	b.Start()
+	//	b.Start()
 
-//	fmt.Println("****************///////////////////*******************")
+	fmt.Println("****************///////////////////*******************")
 
-//}
+}
 
 ////func startAnotherBot() {
 ////	b, err := tb.NewBot(tb.Settings{
