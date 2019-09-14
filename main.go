@@ -96,13 +96,13 @@ func startGocorn() {
 
 func readRSS() {
 	Isna("https://www.isna.ir/rss", "آخرین_خبر")
-	Isna("https://www.isna.ir/rss/tp/5", "علمی_دانشگاهی")
-	Isna("https://www.isna.ir/rss/tp/20", "فرهنگی_هنری")
-	Isna("https://www.isna.ir/rss/tp/14", "سیاسی")
-	Isna("https://www.isna.ir/rss/tp/34", "اقتصادی")
-	Isna("https://www.isna.ir/rss/tp/9", "اجتماعی")
-	Isna("https://www.isna.ir/rss/tp/17", "بین_الملل")
-	Isna("https://www.isna.ir/rss/tp/24", "ورزشی")
+	//	Isna("https://www.isna.ir/rss/tp/5", "علمی_دانشگاهی")
+	//	Isna("https://www.isna.ir/rss/tp/20", "فرهنگی_هنری")
+	//	Isna("https://www.isna.ir/rss/tp/14", "سیاسی")
+	//	Isna("https://www.isna.ir/rss/tp/34", "اقتصادی")
+	//	Isna("https://www.isna.ir/rss/tp/9", "اجتماعی")
+	//	Isna("https://www.isna.ir/rss/tp/17", "بین_الملل")
+	//	Isna("https://www.isna.ir/rss/tp/24", "ورزشی")
 }
 
 func Isna(uri string, mType string) {
@@ -111,7 +111,7 @@ func Isna(uri string, mType string) {
 		fmt.Println(err)
 	}
 	for _, item := range channel.Item {
-		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + mType
+		text := "**" + item.Title + "**" + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + mType
 		var imgUrl string
 		if item.Enclosure != nil {
 			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
