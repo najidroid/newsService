@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -13,6 +14,7 @@ type UserIsna struct {
 	Desc     string `orm:"size(1000)"`
 	ImageUri string
 	Type     string
+	PubDate  time.Time
 }
 
 func init() {
