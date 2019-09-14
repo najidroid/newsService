@@ -111,7 +111,7 @@ func Isna(uri string, mType string) {
 		fmt.Println(err)
 	}
 	for _, item := range channel.Item {
-		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
+		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + mType
 		var imgUrl string
 		if item.Enclosure != nil {
 			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
