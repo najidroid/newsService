@@ -126,6 +126,11 @@ func Isna(uri string, mType string) {
 	for _, item := range channel.Item {
 		i := strings.Index(item.Category[0], ">")
 		category := string(item.Category[0][0:i])
+		category = strings.Replace(category, " ", "_", -1)
+		fmt.Println(strings.LastIndex(category, "_"))
+		if strings.LastIndex(category, "_") == len(category)-1 {
+			category = string(category[0 : len(category)-1])
+		}
 		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
 		t, er := dateparse.ParseLocal(string(item.PubDate))
 		if er != nil {
