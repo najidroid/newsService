@@ -10,7 +10,7 @@ type UserIsna struct {
 	Id       int
 	Title    string
 	Link     string
-	Desc     string
+	Desc     string `orm:"size(1000)"`
 	ImageUri string
 }
 
