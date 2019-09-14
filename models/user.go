@@ -6,7 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-type User struct {
+type UserIsna struct {
 	Id       int
 	Title    string
 	Link     string
@@ -16,12 +16,12 @@ type User struct {
 
 func init() {
 	// Need to register model in init
-	orm.RegisterModel(new(User))
+	orm.RegisterModel(new(UserIsna))
 }
 
-func SetUsers() []*User {
+func SetUsers() []*UserIsna {
 	fmt.Print("**************hellllooooooo*******************")
-	var data []*User
-	orm.NewOrm().QueryTable(new(User)).All(&data)
+	var data []*UserIsna
+	orm.NewOrm().QueryTable(new(UserIsna)).All(&data)
 	return data
 }

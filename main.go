@@ -22,11 +22,17 @@ import (
 	"github.com/najidroid/newsService/models"
 )
 
+var (
+	bot *tb.Bot
+	rec *tb.Chat
+)
+
 func init() {
 
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 
 	orm.RegisterDataBase("default", "mysql", "ua4bq61zbvkmnsrg:d7tZPzypUxp88hPKdcPk@tcp(bet6wf9aiup7rp3qths5-mysql.services.clever-cloud.com:3306)/bet6wf9aiup7rp3qths5?charset=utf8")
+
 }
 
 func main() {
@@ -52,9 +58,18 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
+	bot, _ = tb.NewBot(tb.Settings{
+		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
+		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
+		//		URL: "http://195.129.111.17:8012",
+		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
+	})
+
+	rec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
+
 	readRSS()
 
-	startGocorn()
+	//	startGocorn()
 
 	beego.Run()
 }
@@ -80,100 +95,34 @@ func startGocorn() {
 }
 
 func readRSS() {
-	fmt.Println("reading RSS *******************************************")
-	//	channel, err := rss.Read("https://www.irinn.ir/fa/rss/allnews")
-	channel, err := rss.Read("https://www.irinn.ir/fa/rss/1")
-	//	channel, err := rss.Read("https://www.varzesh3.com/rss/all")
-	//	channel, err := rss.Read("https://www.tasnimnews.com/fa/rss/feed/0/8/0/%D9%85%D9%87%D9%85%D8%AA%D8%B1%DB%8C%D9%86-%D8%A7%D8%AE%D8%A8%D8%A7%D8%B1-%D8%AA%D8%B3%D9%86%DB%8C%D9%85")
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	fmt.Println(channel.Title)
-
-	b, _ := tb.NewBot(tb.Settings{
-		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
-		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
-		//		URL: "http://195.129.111.17:8012",
-		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
-	})
-
-	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
-
-	for _, item := range channel.Item {
-		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
-
-		fmt.Println(item.Title)
-		fmt.Println(item.Link)
-		fmt.Println(item.Description)
-		if item.Enclosure != nil {
-			fmt.Println(item.Enclosure[0].URL)
-			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
-			b.Send(rec, pic)
-			this := models.User{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: item.Enclosure[0].URL}
-			_, err := orm.NewOrm().Insert(&this)
-			if err != nil {
-				//g.CatalogCacheDel("ids")
-				fmt.Printf("save err... %s", err)
-			}
-		} else {
-
-			b.Send(rec, text)
-			this := models.User{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: ""}
-			_, err := orm.NewOrm().Insert(&this)
-			if err != nil {
-				//g.CatalogCacheDel("ids")
-				fmt.Printf("save err... %s", err)
-			}
-		}
-
-	}
-
-	fmt.Println("****************///////////////////*******************")
+	Isna("https://www.irinn.ir/fa/rss/1")
 
 }
 
-////func startAnotherBot() {
-////	b, err := tb.NewBot(tb.Settings{
-////		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
-////		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
-////		//		URL: "http://195.129.111.17:8012",
-////		//		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
-////	})
+func Isna(url string) {
+	channel, err := rss.Read(url)
+	if err != nil {
+		fmt.Println(err)
+	}
+	for _, item := range channel.Item {
+		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
 
-////	if err != nil {
-////		log.Fatal(err)
-////		return
-////	}
+		if item.Enclosure != nil {
+			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
+			bot.Send(rec, pic)
 
-////	b.Handle("/hello", func(m *tb.Message) {
-////		fmt.Println("11111111111111111111111")
-////		b.Send(m.Sender, "hello world")
-////	})
-
-////	b.Handle(tb.OnChannelPost, func(m *tb.Message) {
-////		if m == nil {
-////			fmt.Println("m is nil*********************")
-////		}
-////		//		fmt.Println(tb.Recipient())
-////		fmt.Println(m.Chat)
-////		//		p := &tb.Photo{File: tb.FromDisk("nazar.jpg")}
-////		//		b.Send(m.Chat, p)
-////		//b.Send(m.Sender, "hello world")
-////		// channel posts only
-////	})
-
-////	rec := &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
-////	//	p1 := &tb.Photo{File: tb.FromDisk("nazar.jpg")}
-////	//	p2 := &tb.Photo{File: tb.FromURL("https://www.google.com/imgres?imgurl=https%3A%2F%2Fimages.unsplash.com%2Fphoto-1472214103451-9374bd1c798e%3Fixlib%3Drb-1.2.1%26ixid%3DeyJhcHBfaWQiOjEyMDd9%26w%3D1000%26q%3D80&imgrefurl=https%3A%2F%2Funsplash.com%2Fsearch%2Fphotos%2Fpic&docid=yLbmyYyJ2Ux6uM&tbnid=igUvhVcxMorBOM%3A&vet=10ahUKEwjKlcX2yrnkAhVok4sKHTQDDocQMwhtKAAwAA..i&w=1000&h=667&client=ubuntu&bih=639&biw=1299&q=pic&ved=0ahUKEwjKlcX2yrnkAhVok4sKHTQDDocQMwhtKAAwAA&iact=mrc&uact=8")}
-////	//	b.SendAlbum(rec, tb.Album{p1, p2})
-////	//	b.SendAlbum(rec, p2)
-
-////	//	p := &tb.Photo{File: tb.FromDisk("nazar.jpg"), Caption: "این یک کپشن است:)"}
-////	//	b.Send(rec, p)
-
-////	b.Send(rec, "***********************************")
-
-////	b.Start()
-
-////}
+		} else {
+			bot.Send(rec, text)
+			//			this := models.UserIsna{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: ""}
+			//			_, err := orm.NewOrm().Insert(&this)
+			//			if err != nil {
+			//				fmt.Printf("save err... %s", err)
+			//			}
+		}
+		this := models.UserIsna{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: item.Enclosure[0].URL}
+		_, err := orm.NewOrm().Insert(&this)
+		if err != nil {
+			fmt.Printf("save err... %s", err)
+		}
+	}
+}
