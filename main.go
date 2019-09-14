@@ -95,34 +95,39 @@ func startGocorn() {
 }
 
 func readRSS() {
-	Isna("https://www.isna.ir/rss")
-
+	Isna("https://www.isna.ir/rss", "آخرین_خبر")
+	Isna("https://www.isna.ir/rss/tp/5", "علمی_دانشگاهی")
+	Isna("https://www.isna.ir/rss/tp/20", "فرهنگی_هنری")
+	Isna("https://www.isna.ir/rss/tp/14", "سیاسی")
+	Isna("https://www.isna.ir/rss/tp/34", "اقتصادی")
+	Isna("https://www.isna.ir/rss/tp/9", "اجتماعی")
+	Isna("https://www.isna.ir/rss/tp/17", "بین_الملل")
+	Isna("https://www.isna.ir/rss/tp/24", "ورزشی")
 }
 
-func Isna(url string) {
-	channel, err := rss.Read(url)
+func Isna(uri string, mType string) {
+	channel, err := rss.Read(uri)
 	if err != nil {
 		fmt.Println(err)
 	}
 	for _, item := range channel.Item {
 		text := item.Title + "\n" + item.Description + "\n" + "لینک خبر: " + item.Link
-
+		var imgUrl string
 		if item.Enclosure != nil {
 			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
 			bot.Send(rec, pic)
-
+			imgUrl = item.Enclosure[0].URL
 		} else {
 			bot.Send(rec, text)
-			//			this := models.UserIsna{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: ""}
-			//			_, err := orm.NewOrm().Insert(&this)
-			//			if err != nil {
-			//				fmt.Printf("save err... %s", err)
-			//			}
+			imgUrl = ""
+
 		}
-		this := models.UserIsna{Title: item.Title, Link: item.Link, Desc: item.Description, ImageUri: item.Enclosure[0].URL}
+		this := models.UserIsna{Title: item.Title, Link: item.Link,
+			Desc: item.Description, ImageUri: imgUrl, Type: mType}
 		_, err := orm.NewOrm().Insert(&this)
 		if err != nil {
 			fmt.Printf("save err... %s", err)
 		}
+		fmt.Println(mType + "\n" + item.Description)
 	}
 }

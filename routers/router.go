@@ -5,13 +5,10 @@ import (
 
 	"github.com/astaxie/beego"
 
-	"fmt"
+	//	"fmt"
 )
 
 func init() {
-	//sedongsdg
-	//test
-	fmt.Println("router is working *********************************")
 	ns := beego.NewNamespace("/v1",
 		beego.NSNamespace("/user", beego.NSInclude(&controllers.UserController{})),
 	)

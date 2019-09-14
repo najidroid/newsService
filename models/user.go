@@ -12,6 +12,7 @@ type UserIsna struct {
 	Link     string
 	Desc     string `orm:"size(1000)"`
 	ImageUri string
+	Type     string
 }
 
 func init() {
