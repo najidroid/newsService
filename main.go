@@ -69,7 +69,7 @@ func main() {
 
 	readRSS()
 
-	//	startGocorn()
+	startGocorn()
 
 	beego.Run()
 }
@@ -95,7 +95,7 @@ func startGocorn() {
 }
 
 func readRSS() {
-	Isna("https://www.irinn.ir/fa/rss/1")
+	Isna("https://www.isna.ir/rss")
 
 }
 
