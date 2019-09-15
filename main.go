@@ -143,7 +143,8 @@ func Isna(uri string, mType string) {
 		if strings.LastIndex(category, "_") == len(category)-1 {
 			category = string(category[0 : len(category)-1])
 		}
-		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
+		testText := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
+		khabardarText := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@khabardar_channel"
 		t, er := dateparse.ParseLocal(string(item.PubDate))
 		if er != nil {
 			panic(err.Error())
@@ -158,13 +159,14 @@ func Isna(uri string, mType string) {
 
 		var imgUrl string
 		if item.Enclosure != nil {
-			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
-			testBot.Send(testRec, pic)
-			khabardarBot.Send(khabardarRec, pic)
+			testPic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: testText}
+			khabardarPic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: khabardarText}
+			testBot.Send(testRec, testPic)
+			khabardarBot.Send(khabardarRec, khabardarPic)
 			imgUrl = item.Enclosure[0].URL
 		} else {
-			testBot.Send(testRec, text)
-			khabardarBot.Send(khabardarRec, text)
+			testBot.Send(testRec, testText)
+			khabardarBot.Send(khabardarRec, khabardarText)
 			imgUrl = ""
 
 		}
