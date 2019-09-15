@@ -22,7 +22,7 @@ import (
 	"github.com/najidroid/newsService/models"
 
 	"strings"
-	//	"time"
+	"time"
 
 	"github.com/araddon/dateparse"
 )
@@ -44,10 +44,10 @@ func main() {
 	name := "default"
 
 	// Drop table and re-create.
-	force := true
+	force := false
 
 	// Print log.
-	verbose := true
+	verbose := false
 
 	// Error.
 	err := orm.RunSyncdb(name, force, verbose)
@@ -115,17 +115,17 @@ func Isna(uri string, mType string) {
 		fmt.Println(err)
 	}
 
-	//	user := &models.UserIsna{}
-	//	orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
-	//	fmt.Println(user)
-	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
-	//	t0, errr := dateparse.ParseLocal(string(user.PubDateStr))
-	//	if errr != nil {
-	//		panic(errr.Error())
-	//	}
+	user := &models.UserIsna{}
+	orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
+	fmt.Println(user)
+	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
+	t0, errr := dateparse.ParseLocal(string(user.PubDateStr))
+	if errr != nil {
+		panic(errr.Error())
+	}
 	//	fmt.Println(user.PubDate)
 	//	fmt.Println(user.Desc)
-	//	fmt.Println(t0)
+	fmt.Println(t0)
 
 	for _, item := range channel.Item {
 		i := strings.Index(item.Category[0], ">")
@@ -140,12 +140,12 @@ func Isna(uri string, mType string) {
 			panic(err.Error())
 		}
 		fmt.Println(t)
-		//		if t.Before(t0) || t.Equal(t0) {
-		//			//			fmt.Println(t0)
-		//			fmt.Println("beforeeeeeeeeeeeeeeeeeeeeeeeeee")
-		//			fmt.Println(t)
-		//			return
-		//		}
+		if t.Before(t0) || t.Equal(t0) {
+			//			fmt.Println(t0)
+			fmt.Println("beforeeeeeeeeeeeeeeeeeeeeeeeeee")
+			fmt.Println(t)
+			return
+		}
 
 		var imgUrl string
 		if item.Enclosure != nil {
