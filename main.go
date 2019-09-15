@@ -17,7 +17,7 @@ import (
 
 	"github.com/ungerik/go-rss"
 
-	tb "gopkg.in/tucnak/telebot.v2"
+	//	tb "gopkg.in/tucnak/telebot.v2"
 
 	"github.com/najidroid/newsService/models"
 
@@ -27,17 +27,16 @@ import (
 	"github.com/araddon/dateparse"
 )
 
-var (
-	bot *tb.Bot
-	rec *tb.Chat
-)
+//var (
+//	bot *tb.Bot
+//	rec *tb.Chat
+//)
 
 func init() {
 
 	orm.RegisterDriver("mysql", orm.DRMySQL)
 
 	orm.RegisterDataBase("default", "mysql", "ua4bq61zbvkmnsrg:d7tZPzypUxp88hPKdcPk@tcp(bet6wf9aiup7rp3qths5-mysql.services.clever-cloud.com:3306)/bet6wf9aiup7rp3qths5?charset=utf8")
-
 }
 
 func main() {
@@ -63,14 +62,14 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
-	bot, _ = tb.NewBot(tb.Settings{
-		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
-		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
-		//		URL: "http://195.129.111.17:8012",
-		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
-	})
+	//	bot, _ = tb.NewBot(tb.Settings{
+	//		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
+	//		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
+	//		//		URL: "http://195.129.111.17:8012",
+	//		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
+	//	})
 
-	rec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
+	//	rec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
 
 	readRSS()
 
@@ -116,17 +115,17 @@ func Isna(uri string, mType string) {
 		fmt.Println(err)
 	}
 
-	user := &models.UserIsna{}
-	orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
-	fmt.Println(user)
+	//	user := &models.UserIsna{}
+	//	orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
+	//	fmt.Println(user)
 	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
-	t0, errr := dateparse.ParseLocal(string(user.PubDateStr))
-	if errr != nil {
-		panic(err.Error())
-	}
-	fmt.Println(user.PubDate)
-	fmt.Println(user.Desc)
-	fmt.Println(t0)
+	//	t0, errr := dateparse.ParseLocal(string(user.PubDateStr))
+	//	if errr != nil {
+	//		panic(errr.Error())
+	//	}
+	//	fmt.Println(user.PubDate)
+	//	fmt.Println(user.Desc)
+	//	fmt.Println(t0)
 
 	for _, item := range channel.Item {
 		i := strings.Index(item.Category[0], ">")
@@ -135,7 +134,7 @@ func Isna(uri string, mType string) {
 		if strings.LastIndex(category, "_") == len(category)-1 {
 			category = string(category[0 : len(category)-1])
 		}
-		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
+		//		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
 		t, er := dateparse.ParseLocal(string(item.PubDate))
 		if er != nil {
 			panic(err.Error())
@@ -150,11 +149,11 @@ func Isna(uri string, mType string) {
 
 		var imgUrl string
 		if item.Enclosure != nil {
-			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
-			bot.Send(rec, pic)
+			//			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
+			//			bot.Send(rec, pic)
 			imgUrl = item.Enclosure[0].URL
 		} else {
-			bot.Send(rec, text)
+			//			bot.Send(rec, text)
 			imgUrl = ""
 
 		}
