@@ -44,10 +44,10 @@ func main() {
 	name := "default"
 
 	// Drop table and re-create.
-	force := true
+	force := false
 
 	// Print log.
-	verbose := true
+	verbose := false
 
 	// Error.
 	err := orm.RunSyncdb(name, force, verbose)
@@ -121,7 +121,7 @@ func Isna(uri string, mType string) {
 	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
 	t0, errr := dateparse.ParseLocal(string(user.PubDateStr))
 	if errr != nil {
-		panic(errr.Error())
+		//		panic(errr.Error())
 	}
 	//	fmt.Println(user.PubDate)
 	//	fmt.Println(user.Desc)
@@ -163,6 +163,8 @@ func Isna(uri string, mType string) {
 		_, err := orm.NewOrm().Insert(&this)
 		if err != nil {
 			fmt.Printf("save err... %s", err)
+		} else {
+			fmt.Println("Added to DB ***********************")
 		}
 		fmt.Println(this)
 	}
