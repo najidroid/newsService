@@ -22,7 +22,7 @@ import (
 	"github.com/najidroid/newsService/models"
 
 	"strings"
-	"time"
+	//	"time"
 
 	"github.com/araddon/dateparse"
 )
@@ -45,10 +45,10 @@ func main() {
 	name := "default"
 
 	// Drop table and re-create.
-	force := false
+	force := true
 
 	// Print log.
-	verbose := false
+	verbose := true
 
 	// Error.
 	err := orm.RunSyncdb(name, force, verbose)
@@ -90,7 +90,7 @@ func failOnError(err error, msg string) {
 func startGocorn() {
 	gocron.Start()
 	s := gocron.NewScheduler()
-	gocron.Every(5).Minutes().Do(readRSS)
+	gocron.Every(1).Minutes().Do(readRSS)
 	//	gocron.Every(5).Seconds().Do(readRSS)
 	//gocron.Every(1).Monday().Do(task)
 	//gocron.Every(1).Thursday().At("18:30").Do(doTownCup)
@@ -118,16 +118,16 @@ func Isna(uri string, mType string) {
 
 	user := &models.UserIsna{}
 	orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
-	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
-	//	fmt.Println(user.PubDate)
-	//	fmt.Println(user.Desc)
-	//	fmt.Println(t0)
+	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
+	t0 := user.PubDate
+	fmt.Println(user.PubDate)
+	fmt.Println(user.Desc)
+	fmt.Println(t0)
 
 	for _, item := range channel.Item {
 		i := strings.Index(item.Category[0], ">")
 		category := string(item.Category[0][0:i])
 		category = strings.Replace(category, " ", "_", -1)
-		fmt.Println(strings.LastIndex(category, "_"))
 		if strings.LastIndex(category, "_") == len(category)-1 {
 			category = string(category[0 : len(category)-1])
 		}
@@ -136,11 +136,13 @@ func Isna(uri string, mType string) {
 		if er != nil {
 			panic(err.Error())
 		}
-
-		//		fmt.Println(t)
+		fmt.Println(t)
 		if t.Before(t0) || t.Equal(t0) {
+
+			//			fmt.Println(t0)
 			fmt.Println("beforeeeeeeeeeeeeeeeeeeeeeeeeee")
-			return
+			fmt.Println(t)
+			//			return
 		}
 
 		var imgUrl string
@@ -159,6 +161,6 @@ func Isna(uri string, mType string) {
 		if err != nil {
 			fmt.Printf("save err... %s", err)
 		}
-		fmt.Println(mType + "\n" + item.Description)
+		fmt.Println(category + "\n" + item.Description)
 	}
 }
