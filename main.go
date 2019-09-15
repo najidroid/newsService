@@ -32,6 +32,7 @@ var (
 	khabardarBot *tb.Bot
 	testRec      *tb.Chat
 	khabardarRec *tb.Chat
+	t0Str        string
 )
 
 func init() {
@@ -124,17 +125,22 @@ func Isna(uri string, mType string) {
 		fmt.Println(err)
 	}
 
-	user := &models.UserIsna{}
-	orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
-	fmt.Println(user)
+	if t0Str == "" {
+		user := &models.UserIsna{}
+		orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
+		fmt.Println(user)
+		t0Str = string(user.PubDateStr)
+	}
 	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
-	t0, errr := dateparse.ParseLocal(string(user.PubDateStr))
+	t0, errr := dateparse.ParseLocal(t0Str)
 	if errr != nil {
 		//		panic(errr.Error())
 	}
 	//	fmt.Println(user.PubDate)
 	//	fmt.Println(user.Desc)
 	fmt.Println(t0)
+
+	t0Str = string(channel.LastBuildDate)
 
 	for _, item := range channel.Item {
 		i := strings.Index(item.Category[0], ">")
