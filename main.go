@@ -22,7 +22,7 @@ import (
 	"github.com/najidroid/newsService/models"
 
 	"strings"
-	"time"
+	//	"time"
 
 	"github.com/araddon/dateparse"
 )
@@ -118,7 +118,7 @@ func Isna(uri string, mType string) {
 	user := &models.UserIsna{}
 	orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
 	fmt.Println(user)
-	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
+	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
 	t0, errr := dateparse.ParseLocal(string(user.PubDateStr))
 	if errr != nil {
 		panic(errr.Error())
