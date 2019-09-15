@@ -8,13 +8,14 @@ import (
 )
 
 type UserIsna struct {
-	Id       int
-	Title    string
-	Link     string
-	Desc     string `orm:"size(1000)"`
-	ImageUri string
-	Type     string
-	PubDate  time.Time
+	Id         int
+	Title      string
+	Link       string
+	Desc       string `orm:"size(1000)"`
+	ImageUri   string
+	Type       string
+	PubDate    time.Time
+	PubDateStr string
 }
 
 func init() {
