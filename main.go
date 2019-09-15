@@ -71,7 +71,7 @@ func main() {
 		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
 	})
 	khabardarBot, _ = tb.NewBot(tb.Settings{
-		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
+		Token: "915860632:AAHdS111sCPwk8O9XMbHu9pIYs6Yiyb8Um4",
 		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
 		//		URL: "http://195.129.111.17:8012",
 		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
