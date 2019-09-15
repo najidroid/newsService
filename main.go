@@ -71,9 +71,9 @@ func main() {
 
 	//	rec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
 
-	//	readRSS()
+	readRSS()
 
-	//	startGocorn()
+	startGocorn()
 
 	beego.Run()
 }
