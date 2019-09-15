@@ -28,8 +28,10 @@ import (
 )
 
 var (
-	bot *tb.Bot
-	rec *tb.Chat
+	testBot      *tb.Bot
+	khabardarBot *tb.Bot
+	testRec      *tb.Chat
+	khabardarRec *tb.Chat
 )
 
 func init() {
@@ -62,14 +64,21 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
-	bot, _ = tb.NewBot(tb.Settings{
+	testBot, _ = tb.NewBot(tb.Settings{
+		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
+		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
+		//		URL: "http://195.129.111.17:8012",
+		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
+	})
+	khabardarBot, _ = tb.NewBot(tb.Settings{
 		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
 		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
 		//		URL: "http://195.129.111.17:8012",
 		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
 	})
 
-	rec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
+	testRec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
+	khabardarRec = &tb.Chat{ID: -1001478784112, Type: "channel", FirstName: "خبردار", Username: "khabardar_channel"}
 
 	readRSS()
 
@@ -150,10 +159,12 @@ func Isna(uri string, mType string) {
 		var imgUrl string
 		if item.Enclosure != nil {
 			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
-			bot.Send(rec, pic)
+			testBot.Send(testRec, pic)
+			khabardarBot.Send(khabardarRec, pic)
 			imgUrl = item.Enclosure[0].URL
 		} else {
-			bot.Send(rec, text)
+			testBot.Send(testRec, text)
+			khabardarBot.Send(khabardarRec, text)
 			imgUrl = ""
 
 		}
