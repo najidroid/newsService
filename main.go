@@ -17,7 +17,7 @@ import (
 
 	"github.com/ungerik/go-rss"
 
-	//	tb "gopkg.in/tucnak/telebot.v2"
+	tb "gopkg.in/tucnak/telebot.v2"
 
 	"github.com/najidroid/newsService/models"
 
@@ -27,10 +27,10 @@ import (
 	"github.com/araddon/dateparse"
 )
 
-//var (
-//	bot *tb.Bot
-//	rec *tb.Chat
-//)
+var (
+	bot *tb.Bot
+	rec *tb.Chat
+)
 
 func init() {
 
@@ -62,14 +62,14 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
-	//	bot, _ = tb.NewBot(tb.Settings{
-	//		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
-	//		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
-	//		//		URL: "http://195.129.111.17:8012",
-	//		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
-	//	})
+	bot, _ = tb.NewBot(tb.Settings{
+		Token: "592949403:AAG-CkEkdqZYxN6DcPGVv8dzAErzIwxNLWQ",
+		// You can also set custom API URL. If field is empty it equals to "https://api.telegram.org"
+		//		URL: "http://195.129.111.17:8012",
+		//		Poller: &tb.LongPoller{Timeout: 1000 * time.Second},
+	})
 
-	//	rec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
+	rec = &tb.Chat{ID: -1001212999492, Type: "channel", FirstName: "test", Username: "thisistestchann"}
 
 	readRSS()
 
@@ -134,7 +134,7 @@ func Isna(uri string, mType string) {
 		if strings.LastIndex(category, "_") == len(category)-1 {
 			category = string(category[0 : len(category)-1])
 		}
-		//		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
+		text := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
 		t, er := dateparse.ParseLocal(string(item.PubDate))
 		if er != nil {
 			panic(err.Error())
@@ -149,11 +149,11 @@ func Isna(uri string, mType string) {
 
 		var imgUrl string
 		if item.Enclosure != nil {
-			//			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
-			//			bot.Send(rec, pic)
+			pic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: text}
+			bot.Send(rec, pic)
 			imgUrl = item.Enclosure[0].URL
 		} else {
-			//			bot.Send(rec, text)
+			bot.Send(rec, text)
 			imgUrl = ""
 
 		}
@@ -166,6 +166,7 @@ func Isna(uri string, mType string) {
 		} else {
 			fmt.Println("Added to DB ***********************")
 		}
+
 		fmt.Println(this)
 	}
 }
