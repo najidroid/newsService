@@ -159,7 +159,7 @@ func Isna(uri string, mType string) {
 		}
 		this := models.UserIsna{Title: item.Title, Link: item.Link,
 			Desc: item.Description, ImageUri: imgUrl, Type: category,
-			PubDate: t}
+			PubDate: t, PubDateStr: string(item.PubDate)}
 		_, err := orm.NewOrm().Insert(&this)
 		if err != nil {
 			fmt.Printf("save err... %s", err)
