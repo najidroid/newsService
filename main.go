@@ -199,13 +199,13 @@ func IsnaKhabardar(uri string, mType string) {
 	}
 
 	if t1Str == "" {
-		user := &models.UserIsna{}
-		orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
+		user := &models.UserIsnaKhabardar{}
+		orm.NewOrm().QueryTable("UserIsnaKhabardar").OrderBy("-PubDate").One(user)
 		fmt.Println(user)
 		t1Str = string(user.PubDateStr)
 	}
 	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
-	t0, errr := dateparse.ParseLocal(t0Str)
+	t0, errr := dateparse.ParseLocal(t1Str)
 	if errr != nil {
 		//		panic(errr.Error())
 	}
@@ -250,14 +250,14 @@ func IsnaKhabardar(uri string, mType string) {
 			imgUrl = ""
 
 		}
-		this := models.UserIsna{Title: item.Title, Link: item.Link,
+		this := models.UserIsnaKhabardar{Title: item.Title, Link: item.Link,
 			Desc: item.Description, ImageUri: imgUrl, Type: category,
 			PubDate: t, PubDateStr: string(item.PubDate)}
 		_, err := orm.NewOrm().Insert(&this)
 		if err != nil {
 			fmt.Printf("save err... %s", err)
 		} else {
-			fmt.Println("Added to DB ***********************")
+			fmt.Println("Added to DB by khabardar***********************")
 		}
 
 		fmt.Println(this)

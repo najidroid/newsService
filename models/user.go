@@ -18,6 +18,17 @@ type UserIsna struct {
 	PubDateStr string
 }
 
+type UserIsnaKhabardar struct {
+	Id         int
+	Title      string
+	Link       string
+	Desc       string `orm:"size(1000)"`
+	ImageUri   string
+	Type       string
+	PubDate    time.Time
+	PubDateStr string
+}
+
 func init() {
 	// Need to register model in init
 	orm.RegisterModel(new(UserIsna))
