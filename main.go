@@ -231,7 +231,7 @@ func IsnaKhabardar(uri string, mType string) {
 		fmt.Println(t)
 		if t.Before(t0) || t.Equal(t0) {
 			//			fmt.Println(t0)
-			fmt.Println("beforeeeeeeeeeeeeeeeeeeeeeeeeee")
+			fmt.Println("khabardar beforeeeeeeeeeeeeeeeeeeeeeeeeee")
 			fmt.Println(item)
 			//fmt.Println(t)
 			return
