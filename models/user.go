@@ -32,6 +32,7 @@ type UserIsnaKhabardar struct {
 func init() {
 	// Need to register model in init
 	orm.RegisterModel(new(UserIsna))
+	orm.RegisterModel(new(UserIsnaKhabardar))
 }
 
 func SetUsers() []*UserIsna {
