@@ -110,7 +110,7 @@ func startGocorn() {
 }
 
 func readRSS() {
-	Isna("https://www.isna.ir/rss-homepage", "خانه")
+	IsnaKhabardar("https://www.isna.ir/rss-homepage", "خانه")
 	Isna("https://www.isna.ir/rss", "آخرین_خبر")
 	//	Isna("https://www.isna.ir/rss/tp/5", "علمی_دانشگاهی")
 	//	Isna("https://www.isna.ir/rss/tp/20", "فرهنگی_هنری")
