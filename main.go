@@ -33,6 +33,7 @@ var (
 	testRec      *tb.Chat
 	khabardarRec *tb.Chat
 	t0Str        string
+	t1Str        string
 )
 
 func init() {
@@ -109,6 +110,7 @@ func startGocorn() {
 }
 
 func readRSS() {
+	Isna("https://www.isna.ir/rss-homepage", "خانه")
 	Isna("https://www.isna.ir/rss", "آخرین_خبر")
 	//	Isna("https://www.isna.ir/rss/tp/5", "علمی_دانشگاهی")
 	//	Isna("https://www.isna.ir/rss/tp/20", "فرهنگی_هنری")
@@ -150,6 +152,77 @@ func Isna(uri string, mType string) {
 			category = string(category[0 : len(category)-1])
 		}
 		testText := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
+		//		khabardarText := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@khabardar_channel"
+		t, er := dateparse.ParseLocal(string(item.PubDate))
+		if er != nil {
+			panic(err.Error())
+		}
+		fmt.Println(t)
+		if t.Before(t0) || t.Equal(t0) {
+			//			fmt.Println(t0)
+			fmt.Println("beforeeeeeeeeeeeeeeeeeeeeeeeeee")
+			//			fmt.Println(t)
+			return
+		}
+
+		var imgUrl string
+		if item.Enclosure != nil {
+			testPic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: testText}
+			//			khabardarPic := &tb.Photo{File: tb.FromURL(item.Enclosure[0].URL), Caption: khabardarText}
+			testBot.Send(testRec, testPic)
+			//			khabardarBot.Send(khabardarRec, khabardarPic)
+			imgUrl = item.Enclosure[0].URL
+		} else {
+			testBot.Send(testRec, testText)
+			//			khabardarBot.Send(khabardarRec, khabardarText)
+			imgUrl = ""
+
+		}
+		this := models.UserIsna{Title: item.Title, Link: item.Link,
+			Desc: item.Description, ImageUri: imgUrl, Type: category,
+			PubDate: t, PubDateStr: string(item.PubDate)}
+		_, err := orm.NewOrm().Insert(&this)
+		if err != nil {
+			fmt.Printf("save err... %s", err)
+		} else {
+			fmt.Println("Added to DB ***********************")
+		}
+
+		fmt.Println(this)
+	}
+}
+
+func IsnaKhabardar(uri string, mType string) {
+	channel, err := rss.Read(uri)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	if t1Str == "" {
+		user := &models.UserIsna{}
+		orm.NewOrm().QueryTable("UserIsna").OrderBy("-PubDate").One(user)
+		fmt.Println(user)
+		t1Str = string(user.PubDateStr)
+	}
+	//	t0 := user.PubDate.Add(time.Hour*4 + time.Minute*30)
+	t0, errr := dateparse.ParseLocal(t0Str)
+	if errr != nil {
+		//		panic(errr.Error())
+	}
+	//	fmt.Println(user.PubDate)
+	//	fmt.Println(user.Desc)
+	fmt.Println(t0)
+
+	t1Str = string(channel.LastBuildDate)
+
+	for _, item := range channel.Item {
+		i := strings.Index(item.Category[0], ">")
+		category := string(item.Category[0][0:i])
+		category = strings.Replace(category, " ", "_", -1)
+		if strings.LastIndex(category, "_") == len(category)-1 {
+			category = string(category[0 : len(category)-1])
+		}
+		testText := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@channelId"
 		khabardarText := item.Title + "\n" + item.Description + "\n" + "/ایسنا" + "\n" + "#" + category + "\n" + "@khabardar_channel"
 		t, er := dateparse.ParseLocal(string(item.PubDate))
 		if er != nil {
@@ -159,7 +232,8 @@ func Isna(uri string, mType string) {
 		if t.Before(t0) || t.Equal(t0) {
 			//			fmt.Println(t0)
 			fmt.Println("beforeeeeeeeeeeeeeeeeeeeeeeeeee")
-			fmt.Println(t)
+			fmt.Println(item)
+			//fmt.Println(t)
 			return
 		}
 
